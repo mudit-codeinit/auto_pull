@@ -6,10 +6,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $branch = 'main'; // Replace with your branch name
 
     // Verify the payload (if you're using a secret token)
-    $secret = 'mwebhook'; // Replace with your secret token
+    $secret = 'mhook'; // Replace with your secret token
     $payload = file_get_contents('php://input');
     $signature = 'sha1=' . hash_hmac('sha1', $payload, $secret);
-
+ 
     if (isset($_SERVER['HTTP_X-HUB-SIGNATURE']) && hash_equals($_SERVER['HTTP_X-HUB-SIGNATURE'], $signature)) {
         // Update the local repository
         $output = shell_exec("cd $repositoryPath && git pull origin $branch 2>&1");
@@ -18,9 +18,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         error_log($output);
     } else {
         header('HTTP/1.0 403 Forbidden');
-        echo 'Forbidden';
-        print_r('Signature ', $signature );
-        print_r($_SERVER['HTTP_X-HUB-SIGNATURE']);
+        //echo 'Forbidden';
+        $headers = getallheaders();
+        error_log(print_r($headers, true));
     }
 } else {
     header('HTTP/1.0 400 Bad Request');
