@@ -23,7 +23,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         //echo 'Forbidden';
         $headers = getallheaders();
         error_log(print_r($headers, true));
-        
+        echo 'X-Hub-Signature '. $xHubSignature;
+        echo "<br/>";
+        echo 'signature '. $signature;
     }
 } else {
     header('HTTP/1.0 400 Bad Request');
