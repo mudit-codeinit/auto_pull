@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Log the output for debugging (you can log to a file or a log service)
         error_log($output);
     } else {
-        header('HTTP/1.0 403 Forbidden');
+       // header('HTTP/1.0 403 Forbidden');
         //echo 'Forbidden';
         $headers = getallheaders();
         error_log(print_r($headers, true));
