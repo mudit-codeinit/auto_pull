@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         //echo 'Forbidden';
         $headers = getallheaders();
         error_log(print_r($headers, true));
-        echo 'HTTP_X-HUB-SIGNATURE '. $_SERVER['HTTP_X-HUB-SIGNATURE'];
+        echo 'X-Hub-Signature '. $_SERVER['X-Hub-Signature'];
         echo 'signature '. $signature;
     }
 } else {
