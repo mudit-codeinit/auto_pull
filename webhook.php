@@ -19,6 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         header('HTTP/1.0 403 Forbidden');
         echo 'Forbidden';
+        print_r('Signature ', $signature );
+        print_r($_SERVER['HTTP_X-HUB-SIGNATURE']);
     }
 } else {
     header('HTTP/1.0 400 Bad Request');
