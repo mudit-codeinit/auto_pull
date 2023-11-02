@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $payload = file_get_contents('php://input');
     $signature = 'sha1=' . hash_hmac('sha1', $payload, $secret);
  
-    if (isset($_SERVER['HTTP_X-HUB-SIGNATURE']) && hash_equals($_SERVER['HTTP_X-HUB-SIGNATURE'], $signature)) {
+    if (isset($_SERVER['X-Hub-Signature']) && hash_equals($_SERVER['X-Hub-Signature'], $signature)) {
         // Update the local repository
         $output = shell_exec("cd $repositoryPath && git pull origin $branch 2>&1");
 
@@ -21,6 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         //echo 'Forbidden';
         $headers = getallheaders();
         error_log(print_r($headers, true));
+        echo 'HTTP_X-HUB-SIGNATURE '. $_SERVER['HTTP_X-HUB-SIGNATURE'];
+        echo 'signature '. $signature;
     }
 } else {
     header('HTTP/1.0 400 Bad Request');
